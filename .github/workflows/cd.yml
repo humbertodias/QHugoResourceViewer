@@ -92,20 +92,24 @@ jobs:
 
      - name: Install Dependencies
        run: |
-         choco install -y qt6-base-dev cmake ninja
+         choco install -y cmake ninja
 
-     - name: Set CMAKE_PREFIX_PATH dynamically
-       run: |
-         $qt_path = "C:\Qt\6.4.2\mingw_64"  # Change this path dynamically if needed
-         $qt_cmake_path = Join-Path $qt_path "lib\cmake\Qt6"
-         
-         # Export the CMAKE_PREFIX_PATH for CMake
-         echo "CMAKE_PREFIX_PATH=$qt_cmake_path" >> $GITHUB_ENV
+     - name: Install Qt
+       uses: jurplel/install-qt-action@v4
+       with:
+         version: 6.4.2
+         host: "windows"
+         target: "desktop"
+         dir: "${{ github.workspace }}/qt/"
+         install-deps: "true"
 
      - name: Build
        run: |
          cmake -B build -DCMAKE_BUILD_TYPE=Release -G Ninja
          cmake --build build
+       env:
+        CMAKE_PREFIX_PATH: "${{ env.QT_ROOT_DIR }}/lib/cmake"
+        WORKSPACE_DIR: ${{ github.workspace }}
 
      - name: Compress binaries (ZIP)
        run: |
