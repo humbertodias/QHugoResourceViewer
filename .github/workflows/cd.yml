@@ -63,7 +63,7 @@ jobs:
 
       - name: Compress binaries
         run: |
-          tar -czf qhugo-resource-viewer-${{ runner.os }}-${{ runner.arch }}.tar.gz -C build QHugoResourceViewer
+          tar -czf qhugo-resource-viewer-${{ runner.os }}-${{ runner.arch }}.tar.gz -C build QHugoResourceViewer.app
 
       - name: Create release
         if: success()
