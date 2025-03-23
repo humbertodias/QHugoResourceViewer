@@ -90,9 +90,9 @@ jobs:
      - name: Check out code
        uses: actions/checkout@v4
 
-     - name: Install Free Pascal
+     - name: Install Dependencies
        run: |
-         choco install -y qt6-default cmake ninja
+         choco install -y qt6-base-dev cmake ninja
 
      - name: Build
        run: |
