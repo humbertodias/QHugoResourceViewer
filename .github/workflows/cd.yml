@@ -92,7 +92,7 @@ jobs:
 
      - name: Install Dependencies
        run: |
-         choco install -y cmake ninja
+         choco install -y cmake
 
      - name: Install Qt
        uses: jurplel/install-qt-action@v4
@@ -105,7 +105,7 @@ jobs:
 
      - name: Build
        run: |
-         cmake -B build -DCMAKE_BUILD_TYPE=Release -G Ninja
+         cmake -B build -DCMAKE_BUILD_TYPE=Release
          cmake --build build
        env:
         CMAKE_PREFIX_PATH: "${{ env.QT_ROOT_DIR }}/lib/cmake"
