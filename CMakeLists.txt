@@ -14,18 +14,34 @@ find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
 
 set(PROJECT_SOURCES
         main.cpp
-        hugoviewer.cpp
-        hugoviewer.h
-        hugoresource.h
-        hugoresource.cpp
+        hugo/hugoviewer.cpp
+        hugo/hugoviewer.h
+        hugo/hugoresource.h
+        hugo/hugoresource.cpp
+        formats/cgffile.cpp
+        formats/cgffile.h
+        formats/tilfile.cpp
+        formats/tilfile.h
+        formats/rawfile.cpp
+        formats/rawfile.h
+        formats/lzpfile.cpp
+        formats/lzpfile.h
+        formats/palfile.cpp
+        formats/palfile.h
+        formats/cbrfile.cpp
+        formats/cbrfile.h
+        formats/pbrfile.cpp
+        formats/pbrfile.h
+        formats/brsfile.cpp
+        formats/brsfile.h
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(QHugoResourceViewer
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
-        hugoresource.h
-        hugoresource.h hugoresource.cpp
+            hugo/hugoresource.h
+            hugo/hugoresource.h hugo/hugoresource.cpp
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET QHugoResourceViewer APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
