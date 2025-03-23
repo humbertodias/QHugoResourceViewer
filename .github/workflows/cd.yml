@@ -28,7 +28,7 @@ jobs:
 
       - name: Compress binaries
         run: |
-          tar -czf qhugo-resource-viewer-${{ runner.os }}-${{ runner.arch }}.tar.gz -C bin QHugoResourceViewer
+          tar -czf qhugo-resource-viewer-${{ runner.os }}-${{ runner.arch }}.tar.gz -C build QHugoResourceViewer
 
       - name: Create release
         if: success()
@@ -42,40 +42,40 @@ jobs:
           name: qhugo-resource-viewer-${{ runner.os }}-${{ runner.arch }}
           path: qhugo-resource-viewer-${{ runner.os }}-${{ runner.arch }}.tar.gz
 
-  # macOS:
-  #   runs-on: ${{ matrix.runner }}
-  #   strategy:
-  #     matrix:
-  #       runner: [macos-latest]
+  macOS:
+    runs-on: ${{ matrix.runner }}
+    strategy:
+      matrix:
+        runner: [macos-latest]
 
-  #   steps:
-  #     - name: Check out code
-  #       uses: actions/checkout@v4
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
 
-  #     - name: Install Dependencies
-  #       run: |
-  #         brew install qt cmake ninja
+      - name: Install Dependencies
+        run: |
+          brew install qt cmake ninja
 
-  #     - name: Build
-  #       run: |
-  #         cmake -B build -DCMAKE_BUILD_TYPE=Release -G Ninja
-  #         cmake --build build
+      - name: Build
+        run: |
+          cmake -B build -DCMAKE_BUILD_TYPE=Release -G Ninja
+          cmake --build build
 
-  #     - name: Compress binaries
-  #       run: |
-  #         tar -czf qhugo-resource-viewer-${{ runner.os }}-${{ runner.arch }}.tar.gz -C bin QHugoResourceViewer
+      - name: Compress binaries
+        run: |
+          tar -czf qhugo-resource-viewer-${{ runner.os }}-${{ runner.arch }}.tar.gz -C build QHugoResourceViewer
 
-  #     - name: Create release
-  #       if: success()
-  #       uses: softprops/action-gh-release@v2
-  #       with:
-  #         files: qhugo-resource-viewer-${{ runner.os }}-${{ runner.arch }}.tar.gz
+      - name: Create release
+        if: success()
+        uses: softprops/action-gh-release@v2
+        with:
+          files: qhugo-resource-viewer-${{ runner.os }}-${{ runner.arch }}.tar.gz
 
-  #     - name: Upload release asset
-  #       uses: actions/upload-artifact@v4
-  #       with:
-  #         name: qhugo-resource-viewer-${{ runner.os }}-${{ runner.arch }}
-  #         path: qhugo-resource-viewer-${{ runner.os }}-${{ runner.arch }}.tar.gz
+      - name: Upload release asset
+        uses: actions/upload-artifact@v4
+        with:
+          name: qhugo-resource-viewer-${{ runner.os }}-${{ runner.arch }}
+          path: qhugo-resource-viewer-${{ runner.os }}-${{ runner.arch }}.tar.gz
 
   # windows:
   #   runs-on: ${{ matrix.runner }}
@@ -98,7 +98,7 @@ jobs:
 
   #     - name: Compress binaries (ZIP)
   #       run: |
-  #         cd bin
+  #         cd build
   #         7z a ..\qhugo-resource-viewer-${{ runner.os }}-${{ runner.arch }}.zip *.exe
 
   #     - name: Create release
