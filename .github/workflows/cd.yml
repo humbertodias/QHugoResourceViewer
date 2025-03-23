@@ -105,7 +105,7 @@ jobs:
 
      - name: Build
        run: |
-         cmake -B build -DCMAKE_BUILD_TYPE=Release
+         cmake -B build -DCMAKE_BUILD_TYPE=Debug
          cmake --build build
        env:
         CMAKE_PREFIX_PATH: "${{ env.QT_ROOT_DIR }}/lib/cmake"
@@ -113,8 +113,8 @@ jobs:
 
      - name: Compress binaries (ZIP)
        run: |
-         cd build
-         7z a ..\qhugo-resource-viewer-${{ runner.os }}-${{ runner.arch }}.zip *.exe
+         cd build\Debug
+         7z a ..\..\qhugo-resource-viewer-${{ runner.os }}-${{ runner.arch }}.zip *.exe
 
      - name: Create release
        if: success()
