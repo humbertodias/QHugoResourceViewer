@@ -1,4 +1,4 @@
-#include "cgffile.h"
+#include "formats/cgffile.h"
 #include <fstream>
 #include <iostream>
 

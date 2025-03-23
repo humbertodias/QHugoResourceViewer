@@ -22,22 +22,24 @@ namespace hugo {
         explicit HugoViewer(QWidget *parent = nullptr);
         ~HugoViewer();
 
-        private slots:
-            void openArchive();
+    private slots:
+        void openArchive();
         void openFolder();
         void onListItemSelected();
-        void onComboBox1Changed();
-        void onComboBox2Changed();
+        void onComboBoxNumberOfFrameChanged();
+        void onComboBoxPaletteChanged();
         void extractFile();
         void saveToPNGs();
+
+        static auto testExt(const std::string &fn) -> bool;
 
     private:
         void setupUi();
         void loadImage(const QString &imagePath);
 
         QListWidget *listWidget;
-        QComboBox *comboBox1;
-        QComboBox *comboBox2;
+        QComboBox *comboNumberOfFrame;
+        QComboBox *comboPalette;
         QLabel *label;
         QGraphicsView *pictureView;
         QPushButton *extractButton;

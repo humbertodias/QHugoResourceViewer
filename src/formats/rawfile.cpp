@@ -1,4 +1,4 @@
-#include "rawfile.h"
+#include "formats/rawfile.h"
 #include <iostream>
 #include <fstream>
 

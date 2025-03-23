@@ -1,4 +1,4 @@
-#include "lzpfile.h"
+#include "formats/lzpfile.h"
 #include <iostream>
 #include <fstream>
 #include <stdexcept>

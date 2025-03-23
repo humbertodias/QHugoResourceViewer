@@ -1,4 +1,4 @@
-#include "hugoviewer.h"
+#include "hugo/hugoviewer.h"
 #include <QMenuBar>
 #include <QVBoxLayout>
 #include <QFileDialog>
@@ -7,6 +7,8 @@
 #include <QImageReader>
 #include <QDir>
 #include <QGraphicsPixmapItem>
+#include <string>
+#include <algorithm>
 
 namespace hugo {
     HugoViewer::HugoViewer(QWidget *parent)
@@ -33,8 +35,8 @@ namespace hugo {
         pictureView->setVisible(true);
 
         label = new QLabel("Number of frame:", this);
-        comboBox1 = new QComboBox(this);
-        comboBox2 = new QComboBox(this);
+        comboNumberOfFrame = new QComboBox(this);
+        comboPalette = new QComboBox(this);
 
         extractButton = new QPushButton("Extract file", this);
         extractButton->setEnabled(false);
@@ -66,8 +68,8 @@ namespace hugo {
         // Vertical layout for the rest of the widgets
         QVBoxLayout *verticalLayout = new QVBoxLayout;
         verticalLayout->addWidget(label);
-        verticalLayout->addWidget(comboBox1);
-        verticalLayout->addWidget(comboBox2);
+        verticalLayout->addWidget(comboNumberOfFrame);
+        verticalLayout->addWidget(comboPalette);
         verticalLayout->addWidget(extractButton);
         verticalLayout->addWidget(saveButton);
 
@@ -109,12 +111,12 @@ namespace hugo {
         loadImage(selectedItem);
     }
 
-    void HugoViewer::onComboBox1Changed()
+    void HugoViewer::onComboBoxNumberOfFrameChanged()
     {
         // Handle comboBox1 changes
     }
 
-    void HugoViewer::onComboBox2Changed()
+    void HugoViewer::onComboBoxPaletteChanged()
     {
         // Handle comboBox2 changes
     }
@@ -139,5 +141,18 @@ namespace hugo {
             scene->addPixmap(QPixmap::fromImage(image));
             pictureView->setVisible(true);
         }
+    }
+
+    bool HugoViewer::testExt(const std::string& fn) {
+        if (fn.length() < 4) {
+            return false;
+        }
+
+        std::string ext = fn.substr(fn.length() - 4);
+        std::transform(ext.begin(), ext.end(), ext.begin(), ::tolower);
+
+        return (ext == ".cgf" || ext == ".raw" || ext == ".lzp" || ext == ".pal" || ext == ".ti2" ||
+                ext == ".ti4" || ext == ".til" || ext == ".cbr" || ext == ".blk" || ext == ".pbr" ||
+                ext == ".pic" || ext == ".brs");
     }
 }

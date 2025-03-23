@@ -1,4 +1,4 @@
-#include "palfile.h"
+#include "formats/palfile.h"
 #include <fstream>
 #include <iostream>
 

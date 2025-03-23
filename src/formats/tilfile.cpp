@@ -1,4 +1,4 @@
-#include "tilfile.h"
+#include "formats/tilfile.h"
 #include <iostream>
 #include <fstream>
 

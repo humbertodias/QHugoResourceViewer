@@ -1,4 +1,4 @@
-#include "hugoresource.h"
+#include "hugo/hugoresource.h"
 
 namespace hugo {
     HugoResource::HugoResource() {}
