@@ -21,7 +21,8 @@ build:
 
 prepare_appdir:
 	cp -r misc/$(OS)/AppDir $(APPDIR)
-	cp $(BUILD_DIR)/$(APP_NAME) $(APPDIR)/usr/bin/
+	mkdir -p $(APPDIR)/usr/bin
+	cp $(BUILD_DIR)/$(APP_NAME) $(APPDIR)/usr/bin/exec
 
 fetch_appimage:
 	wget -c $(APPIMAGE_TOOL_URL) -O $(APPIMAGE_PATH)
