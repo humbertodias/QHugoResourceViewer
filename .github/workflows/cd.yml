@@ -22,28 +22,27 @@ jobs:
       - name: Install Dependencies
         run: |
           sudo apt update
-          sudo apt install -y qt6-base-dev qt6-tools-dev libglu1-mesa-dev cmake ninja-build
+          sudo apt install -y qt6-base-dev qt6-tools-dev libglu1-mesa-dev make cmake ninja-build
 
       - name: Build
-        run: |
-          cmake -B build -DCMAKE_BUILD_TYPE=Release -G Ninja
-          cmake --build build
+        run: make build
 
-      - name: Compress binaries
-        run: |
-          tar -czf qhugo-resource-viewer-${{ runner.os }}-${{ runner.arch }}.tar.gz -C build QHugoResourceViewer
+      - name: Build AppImage
+        run: | 
+          make -f makefile.linux prepare_appdir fetch_appimage build_appimage
+          mv QHugoResourceViewer-*-${{ runner.arch }}.AppImage qhugo-resource-viewer-${{ runner.arch }}.AppImage
 
       - name: Create release
         if: success()
         uses: softprops/action-gh-release@v2
         with:
-          files: qhugo-resource-viewer-${{ runner.os }}-${{ runner.arch }}.tar.gz
+          files: qhugo-resource-viewer-${{ runner.arch }}.AppImage
 
       - name: Upload release asset
         uses: actions/upload-artifact@v4
         with:
-          name: qhugo-resource-viewer-${{ runner.os }}-${{ runner.arch }}
-          path: qhugo-resource-viewer-${{ runner.os }}-${{ runner.arch }}.tar.gz
+          name: qhugo-resource-viewer-${{ runner.arch }}
+          path: qhugo-resource-viewer-${{ runner.arch }}.AppImage
 
   macOS:
     runs-on: ${{ matrix.runner }}

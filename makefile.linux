@@ -1,0 +1,34 @@
+APP_NAME := QHugoResourceViewer
+ARCH := $(shell uname -m)
+OS := $(shell uname -s)
+BUILD_DIR := build
+APPDIR := $(BUILD_DIR)/AppDir
+APPIMAGE_URL := https://github.com/probonopd/go-appimage/releases/expanded_assets/continuous
+APPIMAGE_TOOL_URL := https://github.com/$(shell wget -q $(APPIMAGE_URL) -O - | grep "appimagetool-.*-$(ARCH).AppImage" | head -n 1 | cut -d '"' -f 2)
+APPIMAGE_TOOL := appimagetool-$(ARCH).AppImage
+APPIMAGE_PATH := $(BUILD_DIR)/$(APPIMAGE_TOOL)
+CMAKE := $(shell which cmake)
+CMAKE_BUILD_TYPE = Release
+
+.PHONY: all build prepare_appdir create_apprun create_desktop fetch_appimage build_appimage clean
+
+# Main target
+all: build prepare_appdir create_apprun create_desktop fetch_appimage build_appimage
+
+build:
+	$(CMAKE) -B $(BUILD_DIR) -DCMAKE_BUILD_TYPE=$(CMAKE_BUILD_TYPE) -G Ninja
+	$(CMAKE) --build $(BUILD_DIR)
+
+prepare_appdir:
+	cp -r misc/$(OS)/AppDir $(APPDIR)
+	cp $(BUILD_DIR)/$(APP_NAME) $(APPDIR)/usr/bin/
+
+fetch_appimage:
+	wget -c $(APPIMAGE_TOOL_URL) -O $(APPIMAGE_PATH)
+	chmod +x $(APPIMAGE_PATH)
+
+build_appimage:
+	ARCH=$(ARCH) ./$(APPIMAGE_PATH) $(APPDIR)
+
+clean:
+	rm -rf $(BUILD_DIR) $(APPIMAGE_TOOL) $(APP_NAME)-$(ARCH).AppImage
