@@ -96,10 +96,8 @@ jobs:
 
      - name: Set CMAKE_PREFIX_PATH dynamically
        run: |
-         # Find the installed Qt6 directory (this is a common default path for Qt6 installation with Chocolatey)
-         $qt_path = (Get-Command qt6-qmake).Source
-         $qt_install_dir = [System.IO.Path]::GetDirectoryName($qt_path)
-         $qt_cmake_path = Join-Path $qt_install_dir "lib\cmake\Qt6"
+         $qt_path = "C:\Qt\6.4.2\mingw_64"  # Change this path dynamically if needed
+         $qt_cmake_path = Join-Path $qt_path "lib\cmake\Qt6"
          
          # Export the CMAKE_PREFIX_PATH for CMake
          echo "CMAKE_PREFIX_PATH=$qt_cmake_path" >> $GITHUB_ENV
