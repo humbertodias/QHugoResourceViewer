@@ -94,6 +94,16 @@ jobs:
        run: |
          choco install -y qt6-base-dev cmake ninja
 
+     - name: Set CMAKE_PREFIX_PATH dynamically
+       run: |
+         # Find the installed Qt6 directory (this is a common default path for Qt6 installation with Chocolatey)
+         $qt_path = (Get-Command qt6-qmake).Source
+         $qt_install_dir = [System.IO.Path]::GetDirectoryName($qt_path)
+         $qt_cmake_path = Join-Path $qt_install_dir "lib\cmake\Qt6"
+         
+         # Export the CMAKE_PREFIX_PATH for CMake
+         echo "CMAKE_PREFIX_PATH=$qt_cmake_path" >> $GITHUB_ENV
+
      - name: Build
        run: |
          cmake -B build -DCMAKE_BUILD_TYPE=Release -G Ninja
