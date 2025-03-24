@@ -8,7 +8,7 @@ namespace formats {
         : fn(fileName), rawOffset(myOffset), st(true) {
 
         try {
-            std::ifstream fp(fn, std::ios::binary);
+            fp = std::ifstream (fn, std::ios::binary);
             if (!fp.is_open()) {
                 throw std::ios_base::failure("File not opened");
             }
@@ -16,7 +16,25 @@ namespace formats {
             fp.seekg(rawOffset, std::ios::beg);
             fp.read(reinterpret_cast<char*>(&head), sizeof(rawHead));
 
-            fp.close();
+            std::string tmp=head.name;
+            tmp = tmp.substr(0,6);
+            if (tmp != "mhwanh")
+            {
+                std::cerr<<"It is not RAW format in "<<fileName<<std::endl;
+                st = false;
+            }
+            else
+            {
+                head.version = (head.version%256)*256+(head.version/256);
+                head.width = (head.width%256)*256+(head.width/256);
+                head.height = (head.height%256)*256+(head.height/256);
+                head.numpal = (head.numpal%256)*256+(head.numpal/256);
+                // pal = new uint8_t[head.numpal*3];
+                // p = (char *)pal;
+                // fp.read(p,head.numpal*3*sizeof(Uint8));
+            }
+
+            // fp.close();
         }
         catch (const std::ios_base::failure&) {
             std::cerr << fn << " is not opened." << std::endl;
@@ -52,7 +70,7 @@ namespace formats {
         std::vector<uint8_t> pic(width * height);
 
         try {
-            std::ifstream fp(fn, std::ios::binary);
+            // fp = std::ifstream(fn, std::ios::binary);
             if (!fp.is_open()) {
                 throw std::ios_base::failure("File not opened");
             }
@@ -60,7 +78,7 @@ namespace formats {
             fp.seekg(rawOffset + 0x20 + head.numpal * 3, std::ios::beg);
             fp.read(reinterpret_cast<char*>(pic.data()), width * height);
 
-            fp.close();
+            // fp.close();
         }
         catch (const std::ios_base::failure&) {
             std::cerr << fn << " is not opened." << std::endl;
