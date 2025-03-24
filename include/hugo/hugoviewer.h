@@ -13,6 +13,9 @@
 #include <QGraphicsView>
 #include <QGraphicsScene>
 
+class QAudioOutput;
+class QMediaPlayer;
+
 namespace hugo {
     class HugoViewer : public QMainWindow
     {
@@ -21,17 +24,30 @@ namespace hugo {
     public:
         explicit HugoViewer(QWidget *parent = nullptr);
         ~HugoViewer();
+        static auto testExt(const std::string &fn) -> bool;
+        static auto testPal(const std::string& fn, uint32_t palOffset) -> bool;
 
     private slots:
         void openArchive();
+
+        static QStringList toQStringList(const std::vector<std::string> &vec);
+
         void openFolder();
+
+        void resetSelection();
+
         void onListItemSelected();
+
+        void loadImage(const std::string &fp, uint32_t myOffset);
+        void loadWav(const std::string &filePath, uint32_t myOffset);
+
+        QByteArray toQByteArray(const std::vector<uint8_t> &vec);
+
         void onComboBoxNumberOfFrameChanged();
         void onComboBoxPaletteChanged();
         void extractFile();
         void saveToPNGs();
 
-        static auto testExt(const std::string &fn) -> bool;
 
     private:
         void setupUi();
@@ -45,6 +61,10 @@ namespace hugo {
         QPushButton *extractButton;
         QPushButton *saveButton;
         QGraphicsScene *scene;
+
+        QMediaPlayer *player;
+        QAudioOutput *audioOutput;
+
     };
 }
 #endif // HUGOVIEWER_H

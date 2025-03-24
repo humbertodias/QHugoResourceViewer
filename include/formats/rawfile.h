@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include <cstdint>
+#include <fstream>
 
 namespace formats {
 
@@ -20,6 +21,7 @@ namespace formats {
         } head;
 
         std::string fn;
+        std::ifstream fp;
         bool st;
         uint32_t rawOffset;
 

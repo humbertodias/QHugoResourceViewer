@@ -5,7 +5,7 @@
 #include <string>
 #include <vector>
 
-class cgffile {
+class cgfFile {
 public:
     struct CgfHead {
         std::string name;
@@ -33,7 +33,7 @@ private:
     uint32_t cgfOffset;
 
 public:
-    cgffile(const std::string& fileName, uint32_t myOffset);
+    cgfFile(const std::string& fileName, uint32_t myOffset);
     bool getStatus() const;
     std::vector<uint8_t> getPicture(int num, int& width, int& height);
     std::vector<uint8_t> getPal();
