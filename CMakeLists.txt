@@ -9,14 +9,15 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets)
-find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
+find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets Multimedia)
+find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets Multimedia)
 
 include_directories(${CMAKE_SOURCE_DIR}/include)
 
 set(PROJECT_HEADERS
         include/hugo/hugoviewer.h
         include/hugo/hugoresource.h
+        include/formats/cgffile.h
         include/formats/tilfile.h
         include/formats/rawfile.h
         include/formats/lzpfile.h
@@ -24,7 +25,7 @@ set(PROJECT_HEADERS
         include/formats/cbrfile.h
         include/formats/pbrfile.h
         include/formats/brsfile.h
-        include/formats/cgffile.h
+        include/formats/wavfile.h
 )
 set(PROJECT_SOURCES
         main.cpp
@@ -38,6 +39,9 @@ set(PROJECT_SOURCES
         src/formats/cbrfile.cpp
         src/formats/pbrfile.cpp
         src/formats/brsfile.cpp
+        src/formats/wavfile.cpp
+        src/hugo/hugo_archive_processor.cpp
+        include/hugo/hugo_archive_processor.h
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
@@ -66,7 +70,7 @@ else()
     endif()
 endif()
 
-target_link_libraries(${PROJECT_NAME} PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
+target_link_libraries(${PROJECT_NAME} PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::Multimedia)
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
 # If you are developing for iOS or macOS you should consider setting an
