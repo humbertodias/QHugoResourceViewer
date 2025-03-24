@@ -99,6 +99,7 @@ jobs:
          version: 6.4.2
          host: "windows"
          target: "desktop"
+         modules: ["qtwidgets", "qtmultimedia"]
          dir: "${{ github.workspace }}/qt/"
          install-deps: "true"
 
