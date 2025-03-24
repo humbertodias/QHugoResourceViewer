@@ -13,6 +13,11 @@ Before compiling, you need to install the system dependencies. On Ubuntu/Debian,
 ```bash
 sudo apt install qt6-base-dev qt6-tools-dev qt6-multimedia-dev cmake ninja-build
 ```
+or Alpine
+
+```bash
+apk add qt6-qtbase-dev qt6-qtmultimedia-dev cmake ninja-build
+```
 
 These dependencies include **Qt6** and the necessary development tools for building the application.
 
