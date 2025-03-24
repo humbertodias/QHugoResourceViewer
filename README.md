@@ -1,4 +1,5 @@
 [![CD](https://github.com/humbertodias/QHugoResourceViewer/actions/workflows/cd.yml/badge.svg)](https://github.com/humbertodias/QHugoResourceViewer/actions/workflows/cd.yml)
+![GitHub all releases](https://img.shields.io/github/downloads/humbertodias/QHugoResourceViewer/total)
 
 
 # QHugoResourceViewer
