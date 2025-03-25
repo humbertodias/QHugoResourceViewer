@@ -36,7 +36,9 @@ build_appimage:
 
 copy_qtlibs:
 	mkdir -p $(APPDIR)/usr/lib
-	ldd $(APPDIR)/usr/bin/exec | grep Qt6 | awk '{print $$3}' | xargs -I{} cp {} $(APPDIR)/usr/lib/
+	ldd $(APPDIR)/usr/bin/exec | grep -E 'Qt6|libb2|libicu' | awk '{print $$3}' | while read lib; do \
+	  rsync -avL $$lib $(APPDIR)/usr/lib/; \
+	done
 
 rpath_libs:
 	patchelf --set-rpath '$$ORIGIN/../lib' $(APPDIR)/usr/bin/exec
