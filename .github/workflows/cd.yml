@@ -14,6 +14,8 @@ jobs:
     strategy:
       matrix:
         runner: [ubuntu-22.04, ubuntu-24.04-arm]
+        #22.04 = glibc 2.35
+        #24.04 = glibc 2.39
 
     steps:
       - name: Check out code
@@ -22,7 +24,7 @@ jobs:
       - name: Install Dependencies
         run: |
           sudo apt update
-          sudo apt install -y qt6-base-dev qt6-tools-dev qt6-multimedia-dev libglu1-mesa-dev make cmake ninja-build patchelf
+          sudo apt install -y qt6-base-dev qt6-tools-dev qt6-multimedia-dev libglu1-mesa-dev make cmake ninja-build patchelf rsync
 
       - name: Build
         run: make -f makefile.linux build
