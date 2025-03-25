@@ -39,7 +39,7 @@ copy_qtlibs:
 	ldd $(APPDIR)/usr/bin/exec | grep Qt6 | awk '{print $$3}' | xargs -I{} cp {} $(APPDIR)/usr/lib/
 
 rpath_libs:
-	ls $(APPDIR)/usr/lib | xargs -I{} patchelf --set-rpath '$$ORIGIN/usr/lib' $(APPDIR)/usr/lib/{}
+	patchelf --set-rpath '$$ORIGIN/../lib' $(APPDIR)/usr/bin/exec
 
 clean:
 	rm -rf $(BUILD_DIR) $(APPIMAGE_TOOL) $(APP_NAME)-$(ARCH).AppImage
