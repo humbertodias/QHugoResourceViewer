@@ -26,6 +26,7 @@ set(PROJECT_HEADERS
         include/formats/pbrfile.h
         include/formats/brsfile.h
         include/formats/wavfile.h
+        include/hugo/hugo_archive_processor.h
 )
 set(PROJECT_SOURCES
         main.cpp
@@ -41,7 +42,6 @@ set(PROJECT_SOURCES
         src/formats/brsfile.cpp
         src/formats/wavfile.cpp
         src/hugo/hugo_archive_processor.cpp
-        include/hugo/hugo_archive_processor.h
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
