@@ -7,6 +7,7 @@ APPIMAGE_URL := https://github.com/probonopd/go-appimage/releases/expanded_asset
 APPIMAGE_TOOL_URL := https://github.com/$(shell wget -q $(APPIMAGE_URL) -O - | grep "appimagetool-.*-$(ARCH).AppImage" | head -n 1 | cut -d '"' -f 2)
 APPIMAGE_TOOL := appimagetool-$(ARCH).AppImage
 APPIMAGE_PATH := $(BUILD_DIR)/$(APPIMAGE_TOOL)
+MAKE := $(shell which make)
 CMAKE := $(shell which cmake)
 CMAKE_BUILD_TYPE = Release
 
@@ -23,6 +24,8 @@ prepare_appdir:
 	cp -r misc/$(OS)/AppDir $(APPDIR)
 	mkdir -p $(APPDIR)/usr/bin
 	cp $(BUILD_DIR)/$(APP_NAME) $(APPDIR)/usr/bin/exec
+	$(MAKE) copy_qtlibs
+	$(MAKE) rpath_libs
 
 fetch_appimage:
 	wget -c $(APPIMAGE_TOOL_URL) -O $(APPIMAGE_PATH)
@@ -30,6 +33,13 @@ fetch_appimage:
 
 build_appimage:
 	ARCH=$(ARCH) ./$(APPIMAGE_PATH) $(APPDIR)
+
+copy_qtlibs:
+	mkdir -p $(APPDIR)/usr/lib
+	ldd $(APPDIR)/usr/bin/exec | grep Qt6 | awk '{print $$3}' | xargs -I{} cp {} $(APPDIR)/usr/lib/
+
+rpath_libs:
+	ls $(APPDIR)/usr/lib | xargs -I{} patchelf --set-rpath '$$ORIGIN/usr/lib' $(APPDIR)/usr/lib/{}
 
 clean:
 	rm -rf $(BUILD_DIR) $(APPIMAGE_TOOL) $(APP_NAME)-$(ARCH).AppImage
