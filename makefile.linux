@@ -10,6 +10,7 @@ APPIMAGE_PATH := $(BUILD_DIR)/$(APPIMAGE_TOOL)
 MAKE := $(shell which make)
 CMAKE := $(shell which cmake)
 CMAKE_BUILD_TYPE = Release
+QMAKE := $(shell which make)
 
 .PHONY: all build prepare_appdir create_apprun create_desktop fetch_appimage build_appimage clean
 
@@ -40,7 +41,8 @@ build_appimage:
 	./linuxdeploy-x86_64.AppImage --appdir=build/AppDir --output appimage \
         -d build/AppDir/app.desktop \
         -i build/AppDir/usr/share/icons/hicolor/256x256/apps/icon.png \
-        --plugin qt
+        --plugin qt \
+        --plugin=./linuxdeploy-plugin-qt-x86_64.AppImage
 
 copy_qtlibs:
 	mkdir -p $(APPDIR)/usr/lib
