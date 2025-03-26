@@ -34,7 +34,7 @@ jobs:
       - name: Build AppImage
         run: | 
           make -f makefile.linux prepare_appdir fetch_appimage build_appimage
-          mv QHugoResourceViewer-*-*.AppImage qhugo-resource-viewer-${{ runner.os }}-${{ runner.arch }}.AppImage
+          mv QHugoResourceViewer-*.AppImage qhugo-resource-viewer-${{ runner.os }}-${{ runner.arch }}.AppImage
 
       - name: Create release
         if: success()
