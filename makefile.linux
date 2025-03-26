@@ -17,7 +17,7 @@ CMAKE_BUILD_TYPE = Release
 all: build prepare_appdir create_apprun create_desktop fetch_appimage build_appimage
 
 build:
-	$(CMAKE) -B $(BUILD_DIR) -DCMAKE_BUILD_TYPE=$(CMAKE_BUILD_TYPE) -G Ninja
+	$(CMAKE) -B $(BUILD_DIR) -DCMAKE_BUILD_TYPE=$(CMAKE_BUILD_TYPE) -G Ninja -DCMAKE_BUILD_WITH_INSTALL_RPATH=ON
 	$(CMAKE) --build $(BUILD_DIR)
 
 prepare_appdir:
@@ -30,9 +30,9 @@ prepare_appdir:
 fetch_appimage:
 #	wget -c $(APPIMAGE_TOOL_URL) -O $(APPIMAGE_PATH)
 #	chmod +x $(APPIMAGE_PATH)
-	wget https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/linuxdeploy-x86_64.AppImage
+	wget -O linuxdeploy-x86_64.AppImage https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/linuxdeploy-x86_64.AppImage
 	chmod +x linuxdeploy-x86_64.AppImage
-	wget https://github.com/linuxdeploy/linuxdeploy-plugin-qt/releases/latest/download/linuxdeploy-plugin-qt-x86_64.AppImage
+	wget -O linuxdeploy-plugin-qt-x86_64.AppImage https://github.com/linuxdeploy/linuxdeploy-plugin-qt/releases/latest/download/linuxdeploy-plugin-qt-x86_64.AppImage
 	chmod +x linuxdeploy-plugin-qt-x86_64.AppImage
 
 build_appimage:
