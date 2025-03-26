@@ -13,9 +13,11 @@ jobs:
     runs-on: ${{ matrix.runner }}
     strategy:
       matrix:
-        runner: [ubuntu-22.04, ubuntu-24.04-arm]
+        runner: [ubuntu-24.10]
+#        runner: [ubuntu-22.04, ubuntu-24.04-arm]
         #22.04 = glibc 2.35
         #24.04 = glibc 2.39
+        #24.10 = glibc 2.40
 
     steps:
       - name: Check out code
