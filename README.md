@@ -8,8 +8,8 @@ Tool for viewing [Hugo](https://en.wikipedia.org/wiki/List_of_Hugo_video_games) 
 
 | FORMAT | SUPPORTED |
 |--------|-----------|
-| RAW,WAV,PAL    | ✅        |
-| BLK,CBR,COL,LBM,LZP,PBR,PC,TIL    | ❌        |
+| raw,wav,pal    | ✅        |
+| blk,cbr,col,lbm,lzp,pbr,pc,til    | ❌        |
 
 
 ## Installation
