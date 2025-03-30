@@ -15,7 +15,7 @@ QMAKE := $(shell which qmake6)
 .PHONY: all build prepare_appdir create_apprun create_desktop fetch_appimage build_appimage clean
 
 # Main target
-all: build prepare_appdir create_apprun create_desktop fetch_appimage build_appimage
+all: build
 
 build:
 	$(CMAKE) -B $(BUILD_DIR) -DCMAKE_BUILD_TYPE=$(CMAKE_BUILD_TYPE) -G Ninja -DCMAKE_BUILD_WITH_INSTALL_RPATH=ON
