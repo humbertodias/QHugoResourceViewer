@@ -4,7 +4,7 @@
 
 # QHugoResourceViewer
 
-Tool for viewing [Hugo](https://en.wikipedia.org/wiki/List_of_Hugo_video_games) resources games.
+Tool cross-platform for viewing [Hugo](https://en.wikipedia.org/wiki/List_of_Hugo_video_games) resources games.
 
 | FORMAT | SUPPORTED |
 |--------|-----------|
