@@ -2,63 +2,50 @@
 ![GitHub all releases](https://img.shields.io/github/downloads/humbertodias/QHugoResourceViewer/total)
 
 
-# QHugoResourceViewer
+# HugoResourceViewer
 
-**QHugoResourceViewer** is a tool for viewing Hugo resources (static site framework). This project is developed with **Qt6** and **CMake**, providing a graphical interface to interact with Hugo resources.
+**QHugoResourceViewer** is a tool for viewing Hugo resources games.
+
+![image](https://github.com/user-attachments/assets/82119de7-8e6d-40a1-bcf9-079984ee071c)
+
+Currently supports the formats: 
+
+| FORMAT | SUPPORTED |
+|--------|-----------|
+| RAW    | ✅        |
+| WAV    | ✅        |
+| PAL    | ✅        |
+| BLK    | ❌        |
+| CBR    | ❌        |
+| COL    | ❌        |
+| LBM    | ❌        |
+| LZP    | ❌        |
+| PBR    | ❌        |
+| PC     | ❌        |
+| TIL    | ❌        |
+
 
 ## Dependencies
 
-Before compiling, you need to install the system dependencies. On Ubuntu/Debian, use the following command:
+Ubuntu/Debian
 
 ```bash
 sudo apt install qt6-base-dev qt6-tools-dev qt6-multimedia-dev cmake ninja-build
 ```
-or Alpine
 
-```bash
-apk add qt6-qtbase-dev qt6-qtmultimedia-dev cmake ninja-build
-```
-
-These dependencies include **Qt6** and the necessary development tools for building the application.
-
-## Setup and Build
-
-Follow the steps below to build the project in your local environment.
-
-### 1. Clone the repository
-
-First, clone the repository to your local machine:
+## Clone, Setup and Build
 
 ```bash
 git clone https://github.com/humbertodias/QHugoResourceViewer.git
 cd QHugoResourceViewer
-```
-
-### 2. Create the Build Directory
-
-Next, create the build directory and compile the project:
-
-```bash
 cmake -Bbuild
 cmake --build build
 ```
-
-This will generate the compiled project inside the `build` directory.
-
 ## Running the Application
-
-After a successful build, you can run the application with the following command:
 
 ```bash
 GTK_PATH="" ./build/QHugoResourceViewer
 ```
-
-### Notes on Running:
-- If Qt6 cannot find the GTK dependencies on your system, set the `GTK_PATH` environment variable to an empty string as shown above.
-
-## Known Issues
-
-- **Qt6 Dependencies**: If your system doesn’t have the required version of Qt6 or cannot install `qt6-base-dev` directly, consider using **Qt6 from the official repository** or through tools like **Homebrew** on macOS.
 
 ## License
 
