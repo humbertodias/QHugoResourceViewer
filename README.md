@@ -21,10 +21,7 @@ sudo apt install qt6-base-dev qt6-tools-dev qt6-multimedia-dev cmake ninja-build
 ```
 
 ## Build
-Clone, Setup and Build
 ```bash
-git clone https://github.com/humbertodias/QHugoResourceViewer.git
-cd QHugoResourceViewer
 cmake -Bbuild
 cmake --build build
 ```
