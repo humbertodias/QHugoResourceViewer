@@ -2,13 +2,17 @@
 ![GitHub all releases](https://img.shields.io/github/downloads/humbertodias/QHugoResourceViewer/total)
 
 
-# HugoResourceViewer
+# QHugoResourceViewer
 
-**QHugoResourceViewer** is a tool for viewing Hugo resources games.
+Tool for viewing [Hugo](https://en.wikipedia.org/wiki/List_of_Hugo_video_games) resources games.
+Tested with [Hugo 5 DOS - 1997](https://www.myabandonware.com/game/hugo-5-tqc)
+
 
 ![image](https://github.com/user-attachments/assets/82119de7-8e6d-40a1-bcf9-079984ee071c)
 
-Currently supports the formats: 
+
+
+Current state: 
 
 | FORMAT | SUPPORTED |
 |--------|-----------|
