@@ -26,7 +26,7 @@ jobs:
       - name: Install Dependencies
         run: |
           sudo apt update
-          sudo apt install -y qmake6 qt6-base-dev qt6-tools-dev qt6-multimedia-dev libglu1-mesa-dev make cmake ninja-build patchelf rsync wget
+          sudo apt install -y libglu1-mesa-dev make cmake ninja-build patchelf rsync wget libxcb autoconf automake autoconf-archive libxcb*-dev libxkbcommon-x11-dev nasm
 
       - name: Build
         run: make -f makefile.linux build
@@ -34,19 +34,19 @@ jobs:
       - name: Build AppImage
         run: | 
           make -f makefile.linux prepare_appdir fetch_appimage build_appimage
-          mv QHugoResourceViewer-*.AppImage qhugo-resource-viewer-${{ runner.os }}-${{ runner.arch }}.AppImage
+          mv hugo-resource-viewer-*.AppImage hugo-resource-viewer-${{ runner.os }}-${{ runner.arch }}.AppImage
 
       - name: Create release
         if: success()
         uses: softprops/action-gh-release@v2
         with:
-          files: qhugo-resource-viewer-${{ runner.os }}-${{ runner.arch }}.AppImage
+          files: hugo-resource-viewer-${{ runner.os }}-${{ runner.arch }}.AppImage
 
       - name: Upload release asset
         uses: actions/upload-artifact@v4
         with:
-          name: qhugo-resource-viewer-${{ runner.os }}-${{ runner.arch }}
-          path: qhugo-resource-viewer-${{ runner.os }}-${{ runner.arch }}.AppImage
+          name: hugo-resource-viewer-${{ runner.os }}-${{ runner.arch }}
+          path: hugo-resource-viewer-${{ runner.os }}-${{ runner.arch }}.AppImage
 
   macOS:
     runs-on: ${{ matrix.runner }}
@@ -69,19 +69,19 @@ jobs:
 
       - name: Compress binaries
         run: |
-          tar -czf qhugo-resource-viewer-${{ runner.os }}-${{ runner.arch }}.tar.gz -C build QHugoResourceViewer.app
+          tar -czf hugo-resource-viewer-${{ runner.os }}-${{ runner.arch }}.tar.gz -C build hugo-resource-viewer.app
 
       - name: Create release
         if: success()
         uses: softprops/action-gh-release@v2
         with:
-          files: qhugo-resource-viewer-${{ runner.os }}-${{ runner.arch }}.tar.gz
+          files: hugo-resource-viewer-${{ runner.os }}-${{ runner.arch }}.tar.gz
 
       - name: Upload release asset
         uses: actions/upload-artifact@v4
         with:
-          name: qhugo-resource-viewer-${{ runner.os }}-${{ runner.arch }}
-          path: qhugo-resource-viewer-${{ runner.os }}-${{ runner.arch }}.tar.gz
+          name: hugo-resource-viewer-${{ runner.os }}-${{ runner.arch }}
+          path: hugo-resource-viewer-${{ runner.os }}-${{ runner.arch }}.tar.gz
 
   windows:
    runs-on: ${{ matrix.runner }}
@@ -118,16 +118,16 @@ jobs:
      - name: Compress binaries (ZIP)
        run: |
          cd build\Debug
-         7z a ..\..\qhugo-resource-viewer-${{ runner.os }}-${{ runner.arch }}.zip *.exe
+         7z a ..\..\hugo-resource-viewer-${{ runner.os }}-${{ runner.arch }}.zip *.exe
 
      - name: Create release
        if: success()
        uses: softprops/action-gh-release@v2
        with:
-         files: qhugo-resource-viewer-${{ runner.os }}-${{ runner.arch }}.zip
+         files: hugo-resource-viewer-${{ runner.os }}-${{ runner.arch }}.zip
 
      - name: Upload release asset
        uses: actions/upload-artifact@v4
        with:
-         name: qhugo-resource-viewer-${{ runner.os }}-${{ runner.arch }}
-         path: qhugo-resource-viewer-${{ runner.os }}-${{ runner.arch }}.zip
+         name: hugo-resource-viewer-${{ runner.os }}-${{ runner.arch }}
+         path: hugo-resource-viewer-${{ runner.os }}-${{ runner.arch }}.zip

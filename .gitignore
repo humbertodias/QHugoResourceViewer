@@ -86,4 +86,4 @@ cmake-build-debug
 
 # AppDir
 misc/Linux/AppDir/usr/bin/*
-QHugoResourceViewer
+hugo-Resource-viewer

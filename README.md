@@ -1,8 +1,8 @@
-[![CD](https://github.com/humbertodias/QHugoResourceViewer/actions/workflows/cd.yml/badge.svg)](https://github.com/humbertodias/QHugoResourceViewer/actions/workflows/cd.yml)
-![GitHub all releases](https://img.shields.io/github/downloads/humbertodias/QHugoResourceViewer/total)
+[![CD](https://github.com/humbertodias/hugo-resource-viewer/actions/workflows/cd.yml/badge.svg)](https://github.com/humbertodias/hugo-resource-viewer/actions/workflows/cd.yml)
+![GitHub all releases](https://img.shields.io/github/downloads/humbertodias/hugo-resource-viewer/total)
 
 
-# QHugoResourceViewer
+# Hugo Resource Viewer
 
 Tool cross-platform for viewing [Hugo](https://en.wikipedia.org/wiki/List_of_Hugo_video_games) resources games.
 
@@ -17,19 +17,22 @@ Tool cross-platform for viewing [Hugo](https://en.wikipedia.org/wiki/List_of_Hug
 Ubuntu/Debian
 
 ```bash
-sudo apt install qt6-base-dev qt6-tools-dev qt6-multimedia-dev cmake ninja-build
+sudo apt install cmake ninja-build flex bison autoconf-archive
 ```
 
 ## Build
 ```bash
-cmake -Bbuild
+cmake -B build -S . -DCMAKE_TOOLCHAIN_FILE=./vcpkg/scripts/buildsystems/vcpkg.cmake
 cmake --build build
 ```
 ## Run
 
 ```bash
-GTK_PATH="" ./build/QHugoResourceViewer
+GTK_PATH="" ./build/hugo-resource-viewer
 ```
 
 ![image](https://github.com/user-attachments/assets/82119de7-8e6d-40a1-bcf9-079984ee071c)
 Tested using **HUGO.DAT** from [Hugo 5 DOS - 1997](https://www.myabandonware.com/game/hugo-5-tqc)
+
+## References
+* https://vcpkg.io

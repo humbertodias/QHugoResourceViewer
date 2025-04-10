@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.16)
 
-project(QHugoResourceViewer VERSION 0.1 LANGUAGES CXX)
+project(hugo-resource-viewer VERSION 0.1 LANGUAGES CXX)
 
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
@@ -9,14 +9,12 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets Multimedia)
+find_package(QT NAMES Qt6 REQUIRED COMPONENTS Widgets Multimedia)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets Multimedia)
 
 include_directories(${CMAKE_SOURCE_DIR}/include)
 
 set(PROJECT_HEADERS
-        include/hugo/hugoviewer.h
-        include/hugo/hugoresource.h
         include/formats/cgffile.h
         include/formats/tilfile.h
         include/formats/rawfile.h
@@ -27,11 +25,10 @@ set(PROJECT_HEADERS
         include/formats/brsfile.h
         include/formats/wavfile.h
         include/hugo/hugo_archive_processor.h
+        include/hugo/hugoviewer.h
+        include/hugo/hugoresource.h
 )
 set(PROJECT_SOURCES
-        main.cpp
-        src/hugo/hugoviewer.cpp
-        src/hugo/hugoresource.cpp
         src/formats/cgffile.cpp
         src/formats/tilfile.cpp
         src/formats/rawfile.cpp
@@ -42,6 +39,9 @@ set(PROJECT_SOURCES
         src/formats/brsfile.cpp
         src/formats/wavfile.cpp
         src/hugo/hugo_archive_processor.cpp
+        src/hugo/hugoviewer.cpp
+        src/hugo/hugoresource.cpp
+        main.cpp
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
@@ -78,7 +78,7 @@ target_link_libraries(${PROJECT_NAME} PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt$
 if(${QT_VERSION} VERSION_LESS 6.1.0)
   set(BUNDLE_ID_OPTION MACOSX_BUNDLE_GUI_IDENTIFIER com.example.QHugoResourceViewer)
 endif()
-set_target_properties(QHugoResourceViewer PROPERTIES
+set_target_properties(${PROJECT_NAME} PROPERTIES
     ${BUNDLE_ID_OPTION}
     MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
     MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}

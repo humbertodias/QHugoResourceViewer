@@ -1,16 +1,19 @@
-APP_NAME := QHugoResourceViewer
-ARCH := $(shell uname -m)
-OS := $(shell uname -s)
+APP_NAME  := hugo-resource-viewer
+ARCH      := $(shell uname -m)
+OS        := $(shell uname -s)
 BUILD_DIR := build
-APPDIR := $(BUILD_DIR)/AppDir
-APPIMAGE_URL := https://github.com/probonopd/go-appimage/releases/expanded_assets/continuous
+APPDIR    := $(BUILD_DIR)/AppDir
+CMAKE_BUILD_TYPE := Release
+
+APPIMAGE_URL      := https://github.com/probonopd/go-appimage/releases/expanded_assets/continuous
 APPIMAGE_TOOL_URL := https://github.com/$(shell wget -q $(APPIMAGE_URL) -O - | grep "appimagetool-.*-$(ARCH).AppImage" | head -n 1 | cut -d '"' -f 2)
-APPIMAGE_TOOL := appimagetool-$(ARCH).AppImage
-APPIMAGE_PATH := $(BUILD_DIR)/$(APPIMAGE_TOOL)
-MAKE := $(shell which make)
+APPIMAGE_TOOL     := appimagetool-$(ARCH).AppImage
+APPIMAGE_PATH     := $(BUILD_DIR)/$(APPIMAGE_TOOL)
+
 CMAKE := $(shell which cmake)
-CMAKE_BUILD_TYPE = Release
-QMAKE := $(shell which qmake6)
+MAKE  := $(shell which make)
+CC    := $(shell which gcc)
+CXX   := $(shell which g++)
 
 .PHONY: all build prepare_appdir create_apprun create_desktop fetch_appimage build_appimage clean
 
@@ -18,7 +21,13 @@ QMAKE := $(shell which qmake6)
 all: build
 
 build:
-	$(CMAKE) -B $(BUILD_DIR) -DCMAKE_BUILD_TYPE=$(CMAKE_BUILD_TYPE) -G Ninja -DCMAKE_BUILD_WITH_INSTALL_RPATH=ON
+	$(CMAKE) -S . -B $(BUILD_DIR) \
+		-DCMAKE_BUILD_TYPE=$(CMAKE_BUILD_TYPE) \
+		-DCMAKE_BUILD_WITH_INSTALL_RPATH=ON \
+		-DCMAKE_TOOLCHAIN_FILE=$(PWD)/vcpkg/scripts/buildsystems/vcpkg.cmake \
+		-DCMAKE_MAKE_PROGRAM=$(MAKE) \
+		-DCMAKE_C_COMPILER=$(CC) \
+		-DCMAKE_CXX_COMPILER=$(CXX)
 	$(CMAKE) --build $(BUILD_DIR)
 
 prepare_appdir:
@@ -31,17 +40,9 @@ prepare_appdir:
 fetch_appimage:
 	wget -c $(APPIMAGE_TOOL_URL) -O $(APPIMAGE_PATH)
 	chmod +x $(APPIMAGE_PATH)
-#	wget -O linuxdeploy-x86_64.AppImage https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/linuxdeploy-x86_64.AppImage
-#	chmod +x linuxdeploy-x86_64.AppImage
-#	wget -O linuxdeploy-plugin-qt-x86_64.AppImage https://github.com/linuxdeploy/linuxdeploy-plugin-qt/releases/latest/download/linuxdeploy-plugin-qt-x86_64.AppImage
-#	chmod +x linuxdeploy-plugin-qt-x86_64.AppImage
 
 build_appimage:
 	ARCH=$(ARCH) ./$(APPIMAGE_PATH) $(APPDIR)
-#	./linuxdeploy-x86_64.AppImage --appdir=build/AppDir --output appimage \
-#        -d build/AppDir/app.desktop \
-#        -i build/AppDir/usr/share/icons/hicolor/256x256/apps/icon.png \
-#        --plugin qt
 
 copy_qtlibs:
 	mkdir -p $(APPDIR)/usr/lib
