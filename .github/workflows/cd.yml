@@ -26,7 +26,7 @@ jobs:
       - name: Install Dependencies
         run: |
           sudo apt update
-          sudo apt install -y libglu1-mesa-dev make cmake ninja-build patchelf rsync wget libxcb autoconf automake autoconf-archive libxkbcommon-x11-dev nasm
+          sudo apt install -y libglu1-mesa-dev make cmake ninja-build patchelf rsync wget autoconf automake autoconf-archive libxcb*-dev libxkbcommon-x11-dev nasm
 
       - name: Build
         run: make -f makefile.linux build
