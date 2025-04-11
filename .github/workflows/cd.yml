@@ -102,10 +102,14 @@ jobs:
        run: |
          cmake -B build -DCMAKE_BUILD_TYPE=Debug -DCPACK_GENERATOR=ZIP
          cmake --build build
-         mv build/Debug/hugo-resource-viewer-*.zip hugo-resource-viewer-${{ runner.os }}-${{ runner.arch }}.zip
        env:
         CMAKE_PREFIX_PATH: "${{ env.QT_ROOT_DIR }}/lib/cmake"
         WORKSPACE_DIR: ${{ github.workspace }}
+
+     - name: Compress binaries (ZIP)
+       run: |
+         cd build\Debug
+         7z a ..\..\hugo-resource-viewer-${{ runner.os }}-${{ runner.arch }}.zip *.exe
 
      - name: Create release
        if: success()
