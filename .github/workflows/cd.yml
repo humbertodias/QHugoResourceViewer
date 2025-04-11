@@ -29,7 +29,7 @@ jobs:
       - name: Install Dependencies
         run: |
           sudo apt update
-          sudo apt install -y libglu1-mesa-dev make cmake ninja-build patchelf rsync wget autoconf automake autoconf-archive libxcb*-dev libxkbcommon-x11-dev nasm
+          sudo apt install -y qt6-base-dev qt6-tools-dev qt6-multimedia-dev libglu1-mesa-dev make cmake ninja-build patchelf rsync wget autoconf automake autoconf-archive libxcb*-dev libxkbcommon-x11-dev nasm
 
       - name: Build
         run: |
