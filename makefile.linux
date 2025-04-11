@@ -21,6 +21,7 @@ CXX   := $(shell which g++)
 all: build
 
 build:
+	$(PWD)/vcpkg/bootstrap-vcpkg.sh
 	$(CMAKE) -S . -B $(BUILD_DIR) \
 		-DCMAKE_BUILD_TYPE=$(CMAKE_BUILD_TYPE) \
 		-DCMAKE_BUILD_WITH_INSTALL_RPATH=ON \
