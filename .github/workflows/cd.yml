@@ -32,24 +32,29 @@ jobs:
           sudo apt install -y libglu1-mesa-dev make cmake ninja-build patchelf rsync wget autoconf automake autoconf-archive libxcb*-dev libxkbcommon-x11-dev nasm
 
       - name: Build
-        run: make -f makefile.linux build
+        run: |
+          #make -f makefile.linux build
 
-      - name: Build AppImage
-        run: | 
-          make -f makefile.linux prepare_appdir fetch_appimage build_appimage
-          mv hugo-resource-viewer-*.AppImage hugo-resource-viewer-${{ runner.os }}-${{ runner.arch }}.AppImage
+          cmake -B build -DCMAKE_BUILD_TYPE=Release -G Ninja -DCPACK_GENERATOR=TGZ
+          cmake --build build --target package
+          mv build/hugo-resource-viewer-*.tar.gz hugo-resource-viewer-${{ runner.os }}-${{ runner.arch }}.tar.gz
+
+      # - name: Build AppImage
+      #   run: | 
+      #     make -f makefile.linux prepare_appdir fetch_appimage build_appimage
+      #     mv hugo-resource-viewer-*.AppImage hugo-resource-viewer-${{ runner.os }}-${{ runner.arch }}.AppImage
 
       - name: Create release
         if: success()
         uses: softprops/action-gh-release@v2
         with:
-          files: hugo-resource-viewer-${{ runner.os }}-${{ runner.arch }}.AppImage
+          files: hugo-resource-viewer-${{ runner.os }}-${{ runner.arch }}.tar.gz
 
       - name: Upload release asset
         uses: actions/upload-artifact@v4
         with:
           name: hugo-resource-viewer-${{ runner.os }}-${{ runner.arch }}
-          path: hugo-resource-viewer-${{ runner.os }}-${{ runner.arch }}.AppImage
+          path: hugo-resource-viewer-${{ runner.os }}-${{ runner.arch }}.tar.gz
 
   macOS:
     runs-on: ${{ matrix.runner }}
@@ -69,24 +74,21 @@ jobs:
 
       - name: Build
         run: |
-          cmake -B build -DCMAKE_BUILD_TYPE=Release -G Ninja
-          cmake --build build
-
-      - name: Compress binaries
-        run: |
-          tar -czf hugo-resource-viewer-${{ runner.os }}-${{ runner.arch }}.tar.gz -C build hugo-resource-viewer.app
+          cmake -B build -DCMAKE_BUILD_TYPE=Release -G Ninja -DCPACK_GENERATOR=DragNDrop
+          cmake --build build --target package
+          mv build/hugo-resource-viewer-*.dmg hugo-resource-viewer-${{ runner.os }}-${{ runner.arch }}.dmg 
 
       - name: Create release
         if: success()
         uses: softprops/action-gh-release@v2
         with:
-          files: hugo-resource-viewer-${{ runner.os }}-${{ runner.arch }}.tar.gz
+          files: build/hugo-resource-viewer-${{ runner.os }}-${{ runner.arch }}.dmg
 
       - name: Upload release asset
         uses: actions/upload-artifact@v4
         with:
           name: hugo-resource-viewer-${{ runner.os }}-${{ runner.arch }}
-          path: hugo-resource-viewer-${{ runner.os }}-${{ runner.arch }}.tar.gz
+          path: hugo-resource-viewer-${{ runner.os }}-${{ runner.arch }}.dmg
 
   windows:
    runs-on: ${{ matrix.runner }}
