@@ -33,16 +33,9 @@ jobs:
 
       - name: Build
         run: |
-          #make -f makefile.linux build
-
           cmake -B build -DCMAKE_BUILD_TYPE=Release -G Ninja -DCPACK_GENERATOR=TGZ
           cmake --build build --target package
           mv build/hugo-resource-viewer-*.tar.gz hugo-resource-viewer-${{ runner.os }}-${{ runner.arch }}.tar.gz
-
-      # - name: Build AppImage
-      #   run: | 
-      #     make -f makefile.linux prepare_appdir fetch_appimage build_appimage
-      #     mv hugo-resource-viewer-*.AppImage hugo-resource-viewer-${{ runner.os }}-${{ runner.arch }}.AppImage
 
       - name: Create release
         if: success()
@@ -77,7 +70,7 @@ jobs:
           cmake -B build -DCMAKE_BUILD_TYPE=Release -G Ninja -DCPACK_GENERATOR=DragNDrop
           cmake --build build --target package
           sudo xattr -rd com.apple.quarantine build/hugo-resource-viewer.app
-          mv build/hugo-resource-viewer-*.dmg hugo-resource-viewer-${{ runner.os }}-${{ runner.arch }}.dmg 
+          mv build/hugo-resource-viewer-*.dmg hugo-resource-viewer-${{ runner.os }}-${{ runner.arch }}.dmg
 
       - name: Create release
         if: success()
@@ -119,16 +112,12 @@ jobs:
 
      - name: Build
        run: |
-         cmake -B build -DCMAKE_BUILD_TYPE=Debug
+         cmake -B build -DCMAKE_BUILD_TYPE=Debug -DCPACK_GENERATOR=ZIP
          cmake --build build
+         mv build/Debug/hugo-resource-viewer-*.zip hugo-resource-viewer-${{ runner.os }}-${{ runner.arch }}.zip
        env:
         CMAKE_PREFIX_PATH: "${{ env.QT_ROOT_DIR }}/lib/cmake"
         WORKSPACE_DIR: ${{ github.workspace }}
-
-     - name: Compress binaries (ZIP)
-       run: |
-         cd build\Debug
-         7z a ..\..\hugo-resource-viewer-${{ runner.os }}-${{ runner.arch }}.zip *.exe
 
      - name: Create release
        if: success()
