@@ -4,16 +4,15 @@
     "dependencies": [
         {
             "name": "qtbase",
-            "version>=": "6.8.3",
+            "version>=": "6.8.3"
         },
         {
             "name": "qtmultimedia",
             "version>=": "6.8.3",
             "features": [
                 "widgets",
-                "gstreamer"
+                "ffmpeg"
             ]
-
         }
     ],
     "builtin-baseline": "8174877463ff701ebfd9ff865c89342e65ff6dbe"
