@@ -63,7 +63,6 @@ jobs:
         run: |
           cmake -B build -DCMAKE_BUILD_TYPE=Release -G Ninja -DCPACK_GENERATOR=DragNDrop
           cmake --build build --target package
-          sudo xattr -rd com.apple.quarantine build/hugo-resource-viewer.app
           mv build/hugo-resource-viewer-*.dmg hugo-resource-viewer-${{ runner.os }}-${{ runner.arch }}.dmg
 
       - name: Create release

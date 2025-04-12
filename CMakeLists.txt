@@ -98,11 +98,16 @@ if(QT_VERSION_MAJOR EQUAL 6)
 endif()
 
 
+install(FILES
+    "${CMAKE_SOURCE_DIR}/misc/Darwin/scripts/remove_quarantine_after_install.sh"
+    DESTINATION .
+    PERMISSIONS OWNER_EXECUTE OWNER_WRITE OWNER_READ GROUP_READ WORLD_READ
+)
+
 # CPack configuration
 include(InstallRequiredSystemLibraries)
 
 set(CPACK_PACKAGE_NAME ${PROJECT_NAME})
-set(CPACK_PACKAGE_VENDOR "humbertodias")
 set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Hugo Resource Viewer")
 set(CPACK_PACKAGE_VERSION ${PROJECT_VERSION})
 set(CPACK_PACKAGE_VERSION_MAJOR ${PROJECT_VERSION_MAJOR})
