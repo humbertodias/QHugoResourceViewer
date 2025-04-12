@@ -3,16 +3,12 @@
     "version": "1.0.0",
     "dependencies": [
         {
-            "name": "qtbase",
-            "version>=": "6.8.3"
+            "name": "qt5-base",
+            "version>=": "5.15.16"
         },
         {
-            "name": "qtmultimedia",
-            "version>=": "6.8.3",
-            "features": [
-                "widgets",
-                "ffmpeg"
-            ]
+            "name": "qt5-multimedia",
+            "version>=": "5.15.16"
         }
     ],
     "builtin-baseline": "8174877463ff701ebfd9ff865c89342e65ff6dbe"
