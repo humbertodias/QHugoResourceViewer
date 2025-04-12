@@ -98,11 +98,13 @@ if(QT_VERSION_MAJOR EQUAL 6)
 endif()
 
 
-install(FILES
-    "${CMAKE_SOURCE_DIR}/misc/Darwin/scripts/remove_quarantine_after_install.sh"
-    DESTINATION .
-    PERMISSIONS OWNER_EXECUTE OWNER_WRITE OWNER_READ GROUP_READ WORLD_READ
-)
+if(APPLE)
+    install(FILES
+        "${CMAKE_SOURCE_DIR}/misc/Darwin/scripts/remove_quarantine_after_install.sh"
+        DESTINATION .
+        PERMISSIONS OWNER_EXECUTE OWNER_WRITE OWNER_READ GROUP_READ WORLD_READ
+    )
+endif()
 
 # CPack configuration
 include(InstallRequiredSystemLibraries)
